@@ -68,8 +68,6 @@ const posts = [
 ];
 
 
-console.log(posts);
-
 //elements 
 const container = document.querySelector('#container');
 
@@ -85,14 +83,21 @@ function start(){
     })
 }
 
-
-
-
 //funzione per create i post template partendo dall'array
 function generatePostTemplate (post) {
-    const {content, media, likes, /*created*/} = post;
+    const {content, media, likes, created} = post;
     const name = [post.author.name];
     const image = [post.author.image];
+    let newDate;
+    for (let i=0; i < posts.length; i++){ 
+        const getDate = created;
+        let year = getDate.slice(0, 4);
+        let month = getDate.slice(6, 7);
+        if (month < 10) month = `0`+ month;
+        let day = getDate.slice(9, 10);
+        if (day < 10) day = `0`+ day;
+        newDate = `${day}-${month}-${year}`;
+    }
 
     return `
     <div class="post">
@@ -103,7 +108,7 @@ function generatePostTemplate (post) {
             </div>
             <div class="post-meta__data">
                 <div class="post-meta__author">${name}</div>
-                <div class="post-meta__time">4 mesi fa</div>
+                <div class="post-meta__time">${newDate}</div>
             </div>                    
         </div>
     </div>
