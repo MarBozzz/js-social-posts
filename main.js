@@ -4,7 +4,9 @@ Ricreiamo un feed social aggiungendo al layout di base fornito, il nostro script
 ****BONUS**
 1
 Se clicchiamo sul tasto “Mi Piace” cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
-Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.2
+Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
+2
 Gestire l’assenza dell’immagine profilo con un elemento di fallback che contiene le iniziali dell’utente (es. Luca Formicola > LF).3
 Al click su un pulsante “Mi Piace” di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 */
@@ -67,9 +69,9 @@ const posts = [
     }
 ];
 
-
 //elements 
 const container = document.querySelector('#container');
+
 
 //start function
 start();
@@ -80,6 +82,20 @@ function start(){
     // ciclo l'array stampo dinamicamente i post aggiungendo al container il contenuto ciclato
     posts.forEach((post) => {
         container.innerHTML += generatePostTemplate(post);
+    })
+    clickLike ();
+}
+
+function clickLike (){
+    posts.forEach((post) => {
+        const likeButton = document.querySelector('.like-button');
+        likeButton.addEventListener('click', () =>{
+            likeButton.classList.add('like-button--liked');
+            let likes = [post.likes];
+            document.querySelector('.js-likes-counter').innerHTML='';
+            likes++;
+            document.querySelector('.js-likes-counter').innerHTML=likes;
+        })
     })
 }
 
